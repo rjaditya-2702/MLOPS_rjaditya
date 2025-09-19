@@ -60,16 +60,8 @@ def main():
     csv_path = Path(__file__).parent.parent / 'data' / 'population_data.csv'
     data.to_csv(csv_path, index=False)
 
-    # print(f"Data generated and saved to {csv_path}")
-    # print(f"Number of samples: {n_samples}")
-    # print(f"\nFirst 10 rows of the dataset:")
-    # print(data.head(10))
-    # print(f"\nStatistical summary:")
-    # print(data.describe())
-
     # Calculate actual correlation
     correlation = data['X'].corr(data['Y'])
-    # print(f"\nCorrelation between X and Y: {correlation:.4f}")
 
     # Optional: Create a visualization
     plt.figure(figsize=(10, 6))
@@ -90,7 +82,6 @@ def main():
     # Save the plot
     plot_path = Path(__file__).parent.parent / "assets" / "data_distribution.png"
     plt.savefig(plot_path, dpi=100)
-    # print(f"\nPlot saved to {plot_path}")
 
 
 if __name__ == "__main__":

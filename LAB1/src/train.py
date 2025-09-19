@@ -16,12 +16,6 @@ def main():
     data_path = Path(__file__).parent.parent / 'data' / 'population_data.csv'
     data = pd.read_csv(data_path)
 
-    print("=" * 60)
-    print("LINEAR REGRESSION MODEL FOR Y = 2X + 3 + noise")
-    print("=" * 60)
-    print(f"\nDataset loaded from: {data_path}")
-    print(f"Shape of dataset: {data.shape}")
-
     # Prepare features and target
     X = data[['X']].values  # Features (need 2D array for sklearn)
     y = data['Y'].values    # Target
@@ -30,9 +24,6 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
-
-    # print(f"\nTraining set size: {len(X_train)} samples")
-    # print(f"Testing set size: {len(X_test)} samples")
 
     # Create and train the linear regression model
     model = LinearRegression()
@@ -55,24 +46,9 @@ def main():
     train_r2 = r2_score(y_train, y_train_pred)
     test_r2 = r2_score(y_test, y_test_pred)
 
-    print("\n" + "=" * 60)
-    print("MODEL PERFORMANCE METRICS")
-    print("=" * 60)
-    print(f"\n{'Metric':<25} {'Training':<15} {'Testing':<15}")
-    print("-" * 55)
-    print(f"{'Mean Squared Error (MSE)':<25} {train_mse:<15.4f} {test_mse:<15.4f}")
-    print(f"{'Root MSE (RMSE)':<25} {np.sqrt(train_mse):<15.4f} {np.sqrt(test_mse):<15.4f}")
-    print(f"{'Mean Absolute Error (MAE)':<25} {train_mae:<15.4f} {test_mae:<15.4f}")
-    print(f"{'R² Score':<25} {train_r2:<15.4f} {test_r2:<15.4f}")
-
     # Calculate residuals
     train_residuals = y_train - y_train_pred
     test_residuals = y_test - y_test_pred
-
-    print(f"\n{'Residuals Statistics':<25} {'Training':<15} {'Testing':<15}")
-    print("-" * 55)
-    print(f"{'Mean of Residuals':<25} {np.mean(train_residuals):<15.4f} {np.mean(test_residuals):<15.4f}")
-    print(f"{'Std of Residuals':<25} {np.std(train_residuals):<15.4f} {np.std(test_residuals):<15.4f}")
 
     # Create comprehensive visualization
     fig, axes = plt.subplots(2, 3, figsize=(15, 10))
@@ -147,32 +123,6 @@ def main():
     # Save the plot
     plot_path = Path(__file__).parent.parent / "assets" / "model_analysis.png"
     plt.savefig(plot_path, dpi=100, bbox_inches='tight')
-    print(f"\n" + "=" * 60)
-    print(f"Visualization saved to: {plot_path}")
-
-    # Make predictions for new data points
-    print("\n" + "=" * 60)
-    print("SAMPLE PREDICTIONS")
-    print("=" * 60)
-    sample_X = np.array([[10], [25], [50], [75], [100]])
-    sample_predictions = model.predict(sample_X)
-    print(f"\n{'X Value':<15} {'Predicted Y':<15} {'True Y (no noise)':<20}")
-    print("-" * 50)
-    for x_val, y_pred in zip(sample_X.flatten(), sample_predictions):
-        true_y = 2 * x_val + 3
-        print(f"{x_val:<15.1f} {y_pred:<15.2f} {true_y:<20.1f}")
-
-    # Calculate confidence intervals (approximate)
-    # Standard error of predictions
-    se = np.sqrt(test_mse)
-    confidence_level = 0.95
-    z_score = 1.96  # for 95% confidence
-
-    print("\n" + "=" * 60)
-    print("CONFIDENCE INTERVALS (95%)")
-    print("=" * 60)
-    print(f"Approximate prediction interval: ± {z_score * se:.2f}")
-    print(f"This means most predictions should fall within ± {z_score * se:.2f} of the predicted value")
 
     # Save the model parameters to a file
     model_info = {
@@ -186,7 +136,6 @@ def main():
 
     model_df = pd.DataFrame([model_info])
     model_df.to_csv(Path(__file__).parent.parent / 'model' / 'model_parameters.csv', index=False)
-    # print(f"\nModel parameters saved to: /data/model_parameters.csv")
 
 if __name__ == "__main__":
     main()
