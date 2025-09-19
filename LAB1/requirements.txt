@@ -7,3 +7,5 @@ matplotlib==3.7.2
 requests==2.31.0
 python-multipart==0.0.6
 seaborn==0.13.2
+pandas==2.3.2
+scikit-learn==1.5.1

@@ -277,7 +277,3 @@ This will:
 2. Train a linear regression model
 3. Save model parameters to `model/model_parameters.csv`
 4. Generate visualization plots in `assets/model_analysis.png`
-
-### Running Lab on Google Colab
-
-This lab has additional support to run on free instance of Google Colab. This enables sharing the lab while the Google Colab instance is running. Here is the [link](https://colab.research.google.com/drive/1ESehcAeGGiFvIM6zZaceCxzz6Nb_3Rbp?usp=sharing) to the demo lab.
