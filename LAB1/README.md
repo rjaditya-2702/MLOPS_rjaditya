@@ -1,5 +1,6 @@
 ---
 - Blog: [FastAPI Lab-1](https://www.mlwithramin.com/blog/streamlit-lab1)
+- Original Lab: [Streamlit Labs](https://github.com/raminmohammadi/MLOps/tree/main/Labs/API_Labs/Streamlit_Labs)
 ---
 
 ## Streamlit Introduction
@@ -7,7 +8,7 @@
 Data Science models often need to be shared and presented in an interactive manner for various applications. Streamlit provides a convenient platform to build user-friendly interfaces, allowing practitioners to showcase their remarkable machine learning models to a broader audience effectively.
 
 ## Lab objective
-Before we move forward, we highly recommend completing the [FastAPI_Labs](../FastAPI_Labs/src/) if you haven't already. The FastAPI Labs will teach you how to train and host your own machine learning classification model. In this new lab, we'll build upon what you learned and add a clean, user-friendly interface to interact with your model.
+In this lab, we implement a Simple Linear Regression model that follows the pattern Y = 2X + 3 + noise and create a user-friendly Streamlit interface to interact with the model. The dashboard allows users to input X values and get Y predictions from the trained linear regression model.
 
 ## Installing required packages
 
@@ -40,11 +41,11 @@ pip install -r requirements.txt
 ```
 
 ### Alternative method to installing packages for lab
-Alternative method is to install these 3 packages:
+Alternative method is to install these packages:
 
 ```
-pip install streamlit fastapi uvicorn
-```   
+pip install streamlit pandas numpy scikit-learn matplotlib seaborn pathlib
+```
 
 You could do this in a virtual environment as directed above section.
 
@@ -61,48 +62,36 @@ This will start a server on default port `8501` with an interactive dashboard. T
 ![](./assets/hello_world_streamlit.png)
 
 ## Building the UI Step-by-step
-When creating a dashboard, the initial phase involves determining its layout structure. For this particular demonstration, we will incorporate a side panel and a primary body section. The side panel will serve as a navigation tool, enabling us to access various pages within the application, monitor the health of the backend system, and input test features for the model.
+When creating a dashboard, the initial phase involves determining its layout structure. For this particular demonstration, we will incorporate a side panel and a primary body section. The side panel will serve as an input area for X values, while the main body will display the linear regression predictions and model information.
 
 ### Building the sidebar
 ```Python
-import json
-import requests
 import streamlit as st
-from pathlib import Path
 from streamlit.logger import get_logger
-FASTAPI_BACKEND_ENDPOINT = "http://localhost:8000"
-FASTAPI_IRIS_MODEL_LOCATION = Path(__file__).resolve().parents[2] / 'FastAPI_Labs' / 'src' / 'iris_model.pkl'
+from predict import predict
+
 LOGGER = get_logger(__name__)
+
 def run():
     st.set_page_config(
-        page_title="Iris Flower Prediction Demo",
-        page_icon="🪻",
+        page_title="Linear Regression Predictor",
+        page_icon="📈",
     )
+
     with st.sidebar:
-        try:
-            backend_request = requests.get(FASTAPI_BACKEND_ENDPOINT)
-            if backend_request.status_code == 200:
-                st.success("Backend online ✅")
-            else:
-                st.warning("Problem connecting 😭")
-        except requests.ConnectionError as ce:
-            LOGGER.error(ce)
-            LOGGER.error("Backend offline 😱")
-            st.error("Backend offline 😱")
-        st.info("Configure parameters")
-        # sepal_length = st.slider("Sepal Length",4.3, 7.9, 4.3, 0.1, help="Sepal length in centimeter (cm)", format="%f")
-        # sepal_width = st.slider("Sepal Width",2.0, 4.4, 2.0, 0.1, help="Sepal width in centimeter (cm)", format="%f")
-        # petal_length = st.slider("Petal Length",1.0, 6.9, 1.0, 0.1, help="Petal length in centimeter (cm)", format="%f")
-        # petal_width = st.slider("Petal Width",0.1, 2.5, 0.1, 0.1, help="Petal width in centimeter (cm)", format="%f")
-        test_input_file = st.file_uploader('Upload test prediction file',type=['json'])
-        if test_input_file:
-            st.write('Preview file')
-            test_input_data = json.load(test_input_file)
-            st.json(test_input_data)
-            st.session_state["IS_JSON_FILE_AVAILABLE"] = True
-        else:
-            st.session_state["IS_JSON_FILE_AVAILABLE"] = False
-        predict_button = st.button('Predict')
+        st.info("Enter X value for prediction")
+
+        # Input for X value
+        x_value = st.number_input(
+            "Enter X value:",
+            value=0.0,
+            step=1.0,
+            help="Enter any numeric value for X to get Y prediction"
+        )
+
+        # Predict button
+        predict_button = st.button('Predict Y')
+
 if __name__ == "__main__":
     run()
 ```
@@ -110,44 +99,39 @@ if __name__ == "__main__":
 Let's break down the code and comprehend the design steps.
 
 ```Python
-import json
-import requests
 import streamlit as st
-from pathlib import Path
 from streamlit.logger import get_logger
+from predict import predict
 ```
 We begin by importing the necessary modules:
 
-1. json library will help us to send and receive information from the FastAPI    
-2. requests library facilitates communication between the streamlit server and model server    
-3. streamlit library is for the front-end dashboard. It has its own logger for debugging purposes     
-4. pathlib will help navigate our local file system     
+1. streamlit library is for the front-end dashboard. It has its own logger for debugging purposes
+2. predict function from our local predict.py module that contains the trained linear regression model     
 
 Inside the run function, we start by customizing the title and icon for the browser tab:
 
 ```
 st.set_page_config(
-        page_title="Iris Flower Prediction Demo",
-        page_icon="🪻",
+        page_title="Linear Regression Predictor",
+        page_icon="📈",
     )
 ```
 [`st.set_page_config docs`](https://docs.streamlit.io/library/api-reference/utilities/st.set_page_config)    
 
-This following statement is the beginning of a context manager block that creates a sidebar in the Streamlit app. The `st.sidebar` object provides access to various methods and functions for creating user interface elements within the sidebar area of the Streamlit app.    
+This following statement is the beginning of a context manager block that creates a sidebar in the Streamlit app. The `st.sidebar` object provides access to various methods and functions for creating user interface elements within the sidebar area of the Streamlit app.
 
-To verify the operational status of the FastAPI server, send an HTTP GET request to the server. If the server is running and functioning correctly, it will respond with an HTTP status code of 200 (OK). For detailed explanations of HTTP methods (such as GET, POST, PUT, DELETE) and their corresponding status codes, refer [this](https://developers.evrythng.com/docs/http-verbs-and-error-codes).
+For our linear regression model, we create a simple numeric input field where users can enter X values:
 
 ```Python
 with st.sidebar:
-    backend_request = requests.get(FASTAPI_BACKEND_ENDPOINT)
-        if backend_request.status_code == 200:
-            st.success("Backend online ✅")
-        else:
-            st.warning("Problem connecting 😭")
-    except requests.ConnectionError as ce:
-        LOGGER.error(ce)
-        LOGGER.error("Backend offline 😱")
-        st.error("Backend offline 😱")
+    st.info("Enter X value for prediction")
+
+    x_value = st.number_input(
+        "Enter X value:",
+        value=0.0,
+        step=1.0,
+        help="Enter any numeric value for X to get Y prediction"
+    )
 ```
 
 The following components are used to show different colored boxes:
@@ -168,67 +152,34 @@ The following components are used to show different colored boxes:
 
 ![](./assets/st_error.png)
 
-To allow users to select the sepal length, sepal width, petal length, and petal width, we will create sliders for each of these features. The sliders will have a range from the minimum to the maximum value observed for the respective feature in the dataset. You can adjust the minimum and maximum bounds of the sliders as needed.
+For our linear regression model, we use a simple number input widget to allow users to enter any X value. The `st.number_input` widget is perfect for numeric inputs:
 
 ```Python
-sepal_length = st.slider("Sepal Length",4.3, 7.9, 4.3, 0.1, help="Sepal length in centimeter (cm)", format="%f")
+x_value = st.number_input(
+    "Enter X value:",
+    value=0.0,
+    step=1.0,
+    help="Enter any numeric value for X to get Y prediction"
+)
 ```
-[st.slider docs](https://docs.streamlit.io/library/api-reference/widgets/st.slider)
+[st.number_input docs](https://docs.streamlit.io/library/api-reference/widgets/st.number_input)
 
 Here the parameters are explained below:
-1. `label`: The name of the slider     
-2. `min_value`: The minumum value for the slider range    
-3. `max_value`: The maximum value for the slider range     
-4. `value`: The starting value for the slider     
-5. `step`: The step increment for the slider     
-6. `help`: ? icon indicating more information on hovering    
-7. format: Additional format specifier. Here we want a single digit after float    
+1. `label`: The name/prompt for the input field
+2. `value`: The default/starting value
+3. `step`: The increment/decrement step when using the +/- buttons
+4. `help`: ? icon indicating more information on hovering
 
-`🔥Note:` The value of the slider is directly stored into the variable. So, `sepal_length` in `sepal_length = st.slider()` will store the current value for the slider.
+`🔥Note:` The value of the number input is directly stored into the variable. So, `x_value` in `x_value = st.number_input()` will store the current value entered by the user.
 
-When working with machine learning models in practical applications, practitioners often need to handle various file formats such as CSV, JSON, Excel, and others. Instead of using sliders or other input methods, we will leverage the `st.file_uploader` widget to allow users to upload a JSON file. This JSON file can then be previewed using st.json before sending the data for prediction by the model. 
-
-```Python
-test_input_file = st.file_uploader('Upload test prediction file',type=['json'])
-```
-
-The above function accepts two arguments: a message to display to the user, and a list of permitted file types. In our case, we will specify JSON as the only accepted file type.
-
-Check the documentation for additional arguments [`st.file_uploader`](https://docs.streamlit.io/library/api-reference/widgets/st.file_uploader). 
-
-![](./assets/st_file_uploader.png)
-
-It is important to note that since the permitted file type is set to json, if the user attempts to upload a file of any other format, such as CSV, Streamlit will display a warning message. In this scenario, the application will not proceed with sending a prediction request.
-
-![](./assets/st_file_uploader_not_permitted.png)
-
-The [`st.json`](https://docs.streamlit.io/library/api-reference/data/st.json) widget provides a convenient way to preview the contents of the uploaded JSON file. This preview functionality allows the user to validate and ensure the information is correct before proceeding with the prediction process.
-
-An example `test.json` file
-```JSON
-{
-    "input_test" : {
-        "sepal_length": 2.5,
-        "sepal_width": 3.5,
-        "petal_length": 1.5,
-        "petal_width": 2.5
-    }
-}
-```
-
-The next key information is [`st.session_state`](https://docs.streamlit.io/library/api-reference/session-state). In Streamlit applications, `st.session_state` is a way to store and persist data across multiple user interactions with the app. It acts like a client-side cache, storing variables and data in the user's browser session. 
-
-```Python
-st.session_state["IS_JSON_FILE_AVAILABLE"] = True
-```
+For our simple linear regression model, we keep the interface clean and straightforward. Users simply enter a numeric X value and get the corresponding Y prediction. This direct approach is perfect for demonstrating linear regression concepts and allows for quick testing of different input values.
 
 
 Finally, to finish the sidebar panel, let's add the most important element, i.e., the predict button.
 
 ```Python
-predict_button = st.button('Predict')
+predict_button = st.button('Predict Y')
 ```
-![](./assets/predict_button.png)
 
 [`st.button docs`](https://docs.streamlit.io/library/api-reference/widgets/st.button)
 
@@ -241,7 +192,8 @@ The body will show the heading for the dashboard, and the prediction output.
 For the heading, the [`st.write`](https://docs.streamlit.io/library/api-reference/write-magic/st.write) function Swiss Army knife of Streamlit and can render various forms of text output.
 
 ```
-st.write("# Iris Flower Prediction! 🪻")
+st.write("# Linear Regression Predictor! 📈")
+st.write("### Y = aX + b")
 ```
 
 For the prediction output, we create a placeholder.
@@ -265,48 +217,45 @@ In Streamlit, the [`st.spinner`](https://docs.streamlit.io/library/api-reference
 Finally, piecing together all this information gives
 
 ```Python
-st.write("# Iris Flower Prediction! 🪻")
+st.write("# Linear Regression Predictor! 📈")
+st.write("### Y = aX + b")
+
 if predict_button:
-    if FASTAPI_IRIS_MODEL_LOCATION.is_file():
-        client_input = json.dumps({
-            "petal_length": petal_length,
-            "sepal_length": sepal_length,
-            "petal_width": petal_width,
-            "sepal_width": sepal_width
-        })
-        try:
-            result_container = st.empty()
-            with st.spinner('Predicting...'):
-                predict_iris_response = requests.post(f'{FASTAPI_BACKEND_ENDPOINT}/predict', client_input)
-            if predict_iris_response.status_code == 200:
-                iris_content = json.loads(predict_iris_response.content)
-                start_sentence = "The flower predicted is: "
-                if iris_content["response"] == 0:
-                    result_container.success(f"{start_sentence} setosa")
-                elif iris_content["response"] == 1:
-                    result_container.success(f"{start_sentence} versicolor")
-                elif iris_content["response"] == 2:
-                    result_container.success(f"{start_sentence} virginica")
-                else:
-                    result_container.error("Some problem occured while prediction")
-                    LOGGER.error("Problem during prediction")
-            else:
-                st.toast(f':red[Status from server: {predict_iris_response.status_code}. Refresh page and check backend status]', icon="🔴")
-        except Exception as e:
-            st.toast(':red[Problem with backend. Refresh page and check backend status]', icon="🔴")
-            LOGGER.error(e)
-    else:
-        LOGGER.warning('iris_model.pkl not found in FastAPI Lab. Make sure to run train.py to get the model.')
-        st.toast(':red[Model iris_model.pkl not found. Please run the train.py file in FastAPI Lab]', icon="🔥")
+    try:
+        # Get prediction using the predict function
+        y_prediction = predict(x_value)
+
+        # Display result
+        st.success(
+            f"**Input:** X = {x_value}\n\n"
+            f"**Prediction:** Y = {y_prediction:.4f}"
+        )
+
+        # Show the linear equation form
+        st.info(f"Using the trained linear regression model: Y = aX + b")
+
+    except Exception as e:
+        # Error handling
+        st.error(f"Error making prediction: {str(e)}")
+        LOGGER.error(f"Prediction error: {e}")
+
+# Display some information about the model
+st.write("---")
+st.write("### About the Model")
+st.write("This dashboard uses a simple linear regression model trained on data following the pattern Y = 2X + 3 + noise.")
+st.write("Enter an X value in the sidebar to see the model's prediction for Y.")
 ```
 
-At this point, we have understood and built the server code. To run the streamlit server use the command:
+At this point, we have understood and built the linear regression dashboard. To run the streamlit server use the command:
 
 ```
-streamlit run .\Dashboard.py
+streamlit run src/Dashboard.py
 ```
 
-![](./assets/dashboard_1.png)
+This will start the dashboard where you can:
+1. Enter any X value in the sidebar
+2. Click "Predict Y" to get the linear regression prediction
+3. View the result showing both input and predicted output
 
 ## Additional information
 
@@ -316,10 +265,18 @@ The above code generates a SPA (Single Page Application) that could act as a sel
 
 ![](./assets/pages_info.png)
 
-To start the fastAPI server use the command
+## Training the Model
+
+To train the linear regression model, run:
 ```
-uvicorn main:app --reload
+python src/model.py
 ```
+
+This will:
+1. Generate synthetic data following Y = 2X + 3 + noise pattern
+2. Train a linear regression model
+3. Save model parameters to `model/model_parameters.csv`
+4. Generate visualization plots in `assets/model_analysis.png`
 
 ### Running Lab on Google Colab
 
