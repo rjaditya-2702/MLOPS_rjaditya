@@ -294,13 +294,17 @@ your_airflow_project/
 ├── dags/
 │   ├── airflow.py     # Your DAG script
 ├── src/
-│   ├── lab.py                # Data processing and modeling functions
+│   ├── main.py                # Data processing and modeling functions
 ├── data/                       # Directory for data (if needed)
 ├── docker-compose.yaml         # Docker Compose configuration
+|── Dockerfile                  # Docker image to download packages/ libraries
 ```
 
 #### Step 2: Docker Compose Configuration
 Create a docker-compose.yaml file in the project root directory. This file defines the services and configurations for running Airflow in a Docker container.
+
+##### Step 2.1 Docker image file (optional)
+If you face errors with pip installation suggested in 2.d, you can create a custom image as an alternative.
 
 #### Step 3: Start the Docker containers by running the following command
 
