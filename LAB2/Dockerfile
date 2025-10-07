@@ -4,12 +4,13 @@ FROM apache/airflow:2.5.1-python3.7
 USER airflow
 
 # Install packages with --user flag to ensure they go to the right location
-RUN pip install --user --no-cache-dir \
+RUN pip install --user \
     pandas \
     scikit-learn \
     numpy \
     torch \
-    kneed
+    matplotlib \
+    seaborn
 
 # Verify installations
 RUN python -c "import pandas; print('pandas:', pandas.__version__)" && \

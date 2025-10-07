@@ -1,0 +1,37 @@
+[2025-10-07T00:02:06.265+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: pytorch_circle_classifier.train_model manual__2025-10-07T00:01:58.585022+00:00 [queued]>
+[2025-10-07T00:02:06.277+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: pytorch_circle_classifier.train_model manual__2025-10-07T00:01:58.585022+00:00 [queued]>
+[2025-10-07T00:02:06.277+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2025-10-07T00:02:06.278+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 2
+[2025-10-07T00:02:06.278+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2025-10-07T00:02:06.293+0000] {taskinstance.py:1300} INFO - Executing <Task(PythonOperator): train_model> on 2025-10-07 00:01:58.585022+00:00
+[2025-10-07T00:02:06.311+0000] {standard_task_runner.py:55} INFO - Started process 222 to run task
+[2025-10-07T00:02:06.314+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'pytorch_circle_classifier', 'train_model', 'manual__2025-10-07T00:01:58.585022+00:00', '--job-id', '24', '--raw', '--subdir', 'DAGS_FOLDER/***.py', '--cfg-path', '/tmp/tmpmff0y8uv']
+[2025-10-07T00:02:06.316+0000] {standard_task_runner.py:83} INFO - Job 24: Subtask train_model
+[2025-10-07T00:02:06.373+0000] {task_command.py:388} INFO - Running <TaskInstance: pytorch_circle_classifier.train_model manual__2025-10-07T00:01:58.585022+00:00 [running]> on host 1c9de8940ef2
+[2025-10-07T00:02:06.672+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=Aditya Ratan
+AIRFLOW_CTX_DAG_ID=pytorch_circle_classifier
+AIRFLOW_CTX_TASK_ID=train_model
+AIRFLOW_CTX_EXECUTION_DATE=2025-10-07T00:01:58.585022+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2025-10-07T00:01:58.585022+00:00
+[2025-10-07T00:02:06.672+0000] {logging_mixin.py:137} INFO - Training neural network...
+[2025-10-07T00:02:06.710+0000] {logging_mixin.py:137} INFO - Epoch [100/1000], Loss: 0.5694
+[2025-10-07T00:02:06.736+0000] {logging_mixin.py:137} INFO - Epoch [200/1000], Loss: 0.4562
+[2025-10-07T00:02:06.763+0000] {logging_mixin.py:137} INFO - Epoch [300/1000], Loss: 0.2991
+[2025-10-07T00:02:06.788+0000] {logging_mixin.py:137} INFO - Epoch [400/1000], Loss: 0.1694
+[2025-10-07T00:02:06.813+0000] {logging_mixin.py:137} INFO - Epoch [500/1000], Loss: 0.0960
+[2025-10-07T00:02:06.838+0000] {logging_mixin.py:137} INFO - Epoch [600/1000], Loss: 0.0580
+[2025-10-07T00:02:06.880+0000] {logging_mixin.py:137} INFO - Epoch [700/1000], Loss: 0.0381
+[2025-10-07T00:02:06.906+0000] {logging_mixin.py:137} INFO - Epoch [800/1000], Loss: 0.0271
+[2025-10-07T00:02:06.935+0000] {logging_mixin.py:137} INFO - Epoch [900/1000], Loss: 0.0205
+[2025-10-07T00:02:06.961+0000] {logging_mixin.py:137} INFO - Epoch [1000/1000], Loss: 0.0161
+[2025-10-07T00:02:06.961+0000] {logging_mixin.py:137} INFO - Training finished.
+[2025-10-07T00:02:06.961+0000] {logging_mixin.py:137} INFO - Test Accuracy: 1.0000
+[2025-10-07T00:02:06.963+0000] {logging_mixin.py:137} INFO - Model saved to ./models/circle_classifier.pth
+[2025-10-07T00:02:06.971+0000] {python.py:177} INFO - Done. Returned value was: ./models/circle_classifier.pth
+[2025-10-07T00:02:06.979+0000] {taskinstance.py:1323} INFO - Marking task as SUCCESS. dag_id=pytorch_circle_classifier, task_id=train_model, execution_date=20251007T000158, start_date=20251007T000206, end_date=20251007T000206
+[2025-10-07T00:02:07.033+0000] {local_task_job.py:208} INFO - Task exited with return code 0
+[2025-10-07T00:02:07.062+0000] {taskinstance.py:2578} INFO - 1 downstream tasks scheduled from follow-on schedule check
