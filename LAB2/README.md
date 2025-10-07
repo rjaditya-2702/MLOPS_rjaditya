@@ -1,68 +1,65 @@
-# Airflow lab
+# Airflow Lab 2
+
+This lab demonstrates orchestrating machine learning workflows using Apache Airflow. The project implements a complete ML pipeline using directed acyclic graphs (DAGs) to automate data generation, preprocessing, model training, and evaluation tasks within a Dockerized Airflow environment.
 
 - In order to install Airflow using docker you can watch our [Airflow Lab1 Tutorial Video](https://youtu.be/exFSeGUbn4Q?feature=shared)
 - For latest step-by-step instructions, check out this blog - [AirFlow Lab-1](https://www.mlwithramin.com/blog/airflow-lab1)
 
-### ML Model
+### ML Model - Neural Network Circle Classifier
 
-This script is designed for data clustering using K-Means clustering and determining the optimal number of clusters using the elbow method. It provides functionality to load data from a CSV file, perform data preprocessing, build and save a K-Means clustering model, and determine the number of clusters based on the elbow method.
+This lab implements a PyTorch-based binary classification pipeline orchestrated through Apache Airflow. The pipeline trains a neural network to classify points as either inside or outside a circle boundary. The complete workflow includes synthetic data generation, preprocessing with train/test splits, model training using PyTorch, and inference on test data.
 
 #### Prerequisites
 
 Before using this script, make sure you have the following libraries installed:
 
 - pandas
+- numpy
+- torch (PyTorch)
 - scikit-learn (sklearn)
-- kneed
 - pickle
+- json
 
-#### Usage
+#### Neural Network Architecture
 
-You can use this script to perform K-Means clustering on your dataset as follows:
+The `CircleClassifier` is a feed-forward neural network with the following structure:
+- **Input Layer:** 2 features (x1, x2 coordinates)
+- **Hidden Layer 1:** 16 neurons with ReLU activation
+- **Hidden Layer 2:** 8 neurons with ReLU activation
+- **Output Layer:** 1 neuron with Sigmoid activation (binary classification)
 
-```python
-# Load the data
-data = load_data()
+#### Pipeline Functions
 
-# Preprocess the data
-preprocessed_data = data_preprocessing(data)
-
-# Build and save the clustering model
-sse_values = build_save_model(preprocessed_data, 'clustering_model.pkl')
-
-# Load the saved model and determine the number of clusters
-result = load_model_elbow('clustering_model.pkl', sse_values)
-print(result)
-```
-
-#### Functions
-
-1. **load_data():**
-   - *Description:* Loads data from a CSV file, serializes it, and returns the serialized data.
+1. **create_and_save_dataset(output_path='./data/circle_data.csv')**
+   - *Description:* Generates synthetic circle classification dataset with 1000 samples (500 inside, 500 outside) and saves to CSV.
+   - *Returns:* Path to saved dataset
    - *Usage:*
      ```python
-     data = load_data()
+     dataset_path = create_and_save_dataset()
      ```
 
-2. **data_preprocessing(data)**
-   - *Description:* Deserializes data, performs data preprocessing, and returns serialized clustered data.
+2. **preprocess_data(input_path='./data/circle_data.csv')**
+   - *Description:* Loads data, splits into train/test sets (80/20), converts to PyTorch tensors, and saves preprocessed data.
+   - *Returns:* Path to preprocessed data pickle file
    - *Usage:*
      ```python
-     preprocessed_data = data_preprocessing(data)
+     preprocessed_path = preprocess_data(dataset_path)
      ```
 
-3. **build_save_model(data, filename)**
-   - *Description:* Builds a K-Means clustering model, saves it to a file, and returns SSE values.
+3. **train_neural_network(preprocessed_data_path, model_path='./models/circle_classifier.pth')**
+   - *Description:* Trains the neural network for 1000 epochs using Adam optimizer and Binary Cross-Entropy loss, evaluates on test set, and saves model checkpoint.
+   - *Returns:* Path to saved model
    - *Usage:*
      ```python
-     sse_values = build_save_model(preprocessed_data, 'clustering_model.pkl')
+     model_path = train_neural_network(preprocessed_path)
      ```
 
-4. **load_model_elbow(filename, sse)**
-   - *Description:* Loads a saved K-Means clustering model and determines the number of clusters using the elbow method.
+4. **test_model(model_path='./models/circle_classifier.pth', test_file_path='./test/test.txt')**
+   - *Description:* Loads trained model, reads test data from file (format: x1,x2,label), makes predictions, and saves results to JSON.
+   - *Returns:* Prediction results dictionary
    - *Usage:*
      ```python
-     result = load_model_elbow('clustering_model.pkl', sse_values)
+     result = test_model(model_path, './test/test.txt')
      ```
 ### Airflow Setup
 
@@ -131,8 +128,8 @@ Cloud
     - ${AIRFLOW_PROJ_DIR:-.}/working_data:/opt/airflow/working_data
 
     # Change default admin credentials
-    _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow2}
-    _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow2}
+    _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-your_user_name}
+    _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-your_password}
     ```
 
     e. Initialize the database
