@@ -293,8 +293,8 @@ Ensure your project has the following directory structure:
 your_airflow_project/
 ├── dags/
 │   ├── airflow.py     # Your DAG script
-├── src/
-│   ├── main.py                # Data processing and modeling functions
+├── ├──src/
+│       ├── main.py                # Data processing and modeling functions
 ├── data/                       # Directory for data (if needed)
 ├── docker-compose.yaml         # Docker Compose configuration
 |── Dockerfile                  # Docker image to download packages/ libraries

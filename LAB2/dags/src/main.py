@@ -294,19 +294,19 @@ def visualize_decision_boundary(model_path='./models/circle_classifier.pth',
     binary_predictions = binary_predictions.reshape(xx.shape)
     
     # Plot
-    plt.figure(figsize=(8, 6))
-    sns.scatterplot(data=data, x='x1', y='x2', hue='label', palette='viridis', alpha=0.7)
-    plt.contourf(xx, yy, binary_predictions, cmap='coolwarm', alpha=0.5)
+    # plt.figure(figsize=(8, 6))
+    # sns.scatterplot(data=data, x='x1', y='x2', hue='label', palette='viridis', alpha=0.7)
+    # plt.contourf(xx, yy, binary_predictions, cmap='coolwarm', alpha=0.5)
     
-    plt.title('Learned Decision Boundary')
-    plt.xlabel('$x_1$')
-    plt.ylabel('$x_2$')
-    plt.legend()
-    plt.grid(True)
-    plt.axis('equal')
+    # plt.title('Learned Decision Boundary')
+    # plt.xlabel('$x_1$')
+    # plt.ylabel('$x_2$')
+    # plt.legend()
+    # plt.grid(True)
+    # plt.axis('equal')
     
-    # Save plot
-    os.makedirs('../../assets', exist_ok=True)
-    plt.savefig('../../assets/decision_boundary.png')
-    print("Decision boundary plot saved to '../../assets/decision_boundary.png")
-    plt.close()
+    # # Save plot
+    # os.makedirs('../../assets', exist_ok=True)
+    # plt.savefig('../../assets/decision_boundary.png')
+    # print("Decision boundary plot saved to '../../assets/decision_boundary.png")
+    # plt.close()

@@ -1,0 +1,27 @@
+[2025-10-07T02:25:35.120+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: pytorch_circle_classifier.check_test_file manual__2025-10-07T02:25:19.085669+00:00 [queued]>
+[2025-10-07T02:25:35.129+0000] {taskinstance.py:1083} INFO - Dependencies all met for <TaskInstance: pytorch_circle_classifier.check_test_file manual__2025-10-07T02:25:19.085669+00:00 [queued]>
+[2025-10-07T02:25:35.131+0000] {taskinstance.py:1279} INFO - 
+--------------------------------------------------------------------------------
+[2025-10-07T02:25:35.131+0000] {taskinstance.py:1280} INFO - Starting attempt 1 of 2
+[2025-10-07T02:25:35.131+0000] {taskinstance.py:1281} INFO - 
+--------------------------------------------------------------------------------
+[2025-10-07T02:25:35.141+0000] {taskinstance.py:1300} INFO - Executing <Task(BranchPythonOperator): check_test_file> on 2025-10-07 02:25:19.085669+00:00
+[2025-10-07T02:25:35.148+0000] {standard_task_runner.py:55} INFO - Started process 125 to run task
+[2025-10-07T02:25:35.155+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'pytorch_circle_classifier', 'check_test_file', 'manual__2025-10-07T02:25:19.085669+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/***.py', '--cfg-path', '/tmp/tmp7z_7xh4n']
+[2025-10-07T02:25:35.158+0000] {standard_task_runner.py:83} INFO - Job 10: Subtask check_test_file
+[2025-10-07T02:25:35.218+0000] {task_command.py:388} INFO - Running <TaskInstance: pytorch_circle_classifier.check_test_file manual__2025-10-07T02:25:19.085669+00:00 [running]> on host 2db26b28ea99
+[2025-10-07T02:25:35.555+0000] {taskinstance.py:1509} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=Aditya Ratan
+AIRFLOW_CTX_DAG_ID=pytorch_circle_classifier
+AIRFLOW_CTX_TASK_ID=check_test_file
+AIRFLOW_CTX_EXECUTION_DATE=2025-10-07T02:25:19.085669+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2025-10-07T02:25:19.085669+00:00
+[2025-10-07T02:25:35.556+0000] {logging_mixin.py:137} INFO - Test file found at /opt/***/dags/test/test.txt
+[2025-10-07T02:25:35.556+0000] {python.py:177} INFO - Done. Returned value was: test_model
+[2025-10-07T02:25:35.556+0000] {python.py:211} INFO - Branch callable return test_model
+[2025-10-07T02:25:35.556+0000] {skipmixin.py:155} INFO - Following branch test_model
+[2025-10-07T02:25:35.556+0000] {skipmixin.py:211} INFO - Skipping tasks ['skip_testing']
+[2025-10-07T02:25:35.580+0000] {taskinstance.py:1323} INFO - Marking task as SUCCESS. dag_id=pytorch_circle_classifier, task_id=check_test_file, execution_date=20251007T022519, start_date=20251007T022535, end_date=20251007T022535
+[2025-10-07T02:25:35.618+0000] {local_task_job.py:208} INFO - Task exited with return code 0
+[2025-10-07T02:25:35.654+0000] {taskinstance.py:2578} INFO - 1 downstream tasks scheduled from follow-on schedule check
