@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./LAB3
+        working-directory: ./LAB3/
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -30,10 +30,10 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.10.18
+        python-version: '3.10.18'
 
     - name: Install dependencies
-      run: pip install -r LAB3/requirements.txt
+      run: pip install -r requirements.txt
 
     - name: Run tests and generate XML report
       run: pytest --junitxml=pytest-report.xml
@@ -44,7 +44,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: pytest-report.xml
+        path: LAB3/pytest-report.xml
 
     - name: Notify on success
       if: success()

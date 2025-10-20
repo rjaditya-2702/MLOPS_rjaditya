@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./LAB3
+        working-directory: ./LAB3/
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -20,13 +20,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.10.18
+        python-version: '3.10.18'  # Fixed: Added quotes
 
     - name: Install dependencies
       run: pip install -r requirements.txt
 
     - name: Run unittests
-      run: python -m unittest LAB3.test.unittest_sample
+      run: python -m unittest test.unittest_sample  # Fixed: Removed LAB3 prefix
 
     - name: Notify on success
       if: success()
