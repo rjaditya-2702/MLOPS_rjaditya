@@ -50,5 +50,87 @@ rjaditya@Adityas-MacBook-Air MLOps %
 > The commit history in this repo captures the `git add .`,  `git commit`, `git pull`, and `git push` information
 
 ### STEP3: Creating calculator.py
+```
+from src.calculator import *
 
+# to add
+fun1(x,y)
 
+# to substract b from a i.e. a - b
+fun2(b,a)
+
+# to multiply
+fun3(a,b)
+
+# to get sum of all above operations
+fun4(a,b)
+```
+### STEP4: Testing
+**pytest**
+`pytest test/pytest_sample.py`
+```
+(MLOps) rjaditya@Adityas-MacBook-Air LAB3 % pytest test/pytest_sample.py -v
+================================================================================================================= test session starts =================================================================================================================
+platform darwin -- Python 3.10.18, pytest-8.4.2, pluggy-1.6.0 -- /opt/homebrew/anaconda3/envs/MLOps/bin/python3.10
+cachedir: .pytest_cache
+rootdir: /Users/rjaditya/Documents/NEU-SEM/Fall-25/MLOps/MLOps_rjaditya/LAB3
+plugins: Faker-37.11.0, anyio-3.7.1
+collected 24 items                                                                                                                                                                                                                                    
+
+test/pytest_sample.py::test_fun1_addition[2-3-5] PASSED                                                                                                                                                                                         [  4%]
+test/pytest_sample.py::test_fun1_addition[-2-3-1] PASSED                                                                                                                                                                                        [  8%]
+test/pytest_sample.py::test_fun1_addition[3--2-1] PASSED                                                                                                                                                                                        [ 12%]
+test/pytest_sample.py::test_fun1_addition[-3--5--8] PASSED                                                                                                                                                                                      [ 16%]
+test/pytest_sample.py::test_fun1_addition[0-0-0] PASSED                                                                                                                                                                                         [ 20%]
+test/pytest_sample.py::test_fun1_invalid_types PASSED                                                                                                                                                                                           [ 25%]
+test/pytest_sample.py::test_fun2_subtraction[5-3--2] PASSED                                                                                                                                                                                     [ 29%]
+test/pytest_sample.py::test_fun2_subtraction[3-5-2] PASSED                                                                                                                                                                                      [ 33%]
+test/pytest_sample.py::test_fun2_subtraction[-2--3--1] PASSED                                                                                                                                                                                   [ 37%]
+test/pytest_sample.py::test_fun2_subtraction[0-0-0] PASSED                                                                                                                                                                                      [ 41%]
+test/pytest_sample.py::test_fun2_subtraction[10--5--15] PASSED                                                                                                                                                                                  [ 45%]
+test/pytest_sample.py::test_fun2_invalid_types PASSED                                                                                                                                                                                           [ 50%]
+test/pytest_sample.py::test_fun3_multiplication[2-3-6] PASSED                                                                                                                                                                                   [ 54%]
+test/pytest_sample.py::test_fun3_multiplication[-2-3--6] PASSED                                                                                                                                                                                 [ 58%]
+test/pytest_sample.py::test_fun3_multiplication[-3--5-15] PASSED                                                                                                                                                                                [ 62%]
+test/pytest_sample.py::test_fun3_multiplication[0-10-0] PASSED                                                                                                                                                                                  [ 66%]
+test/pytest_sample.py::test_fun3_invalid_types PASSED                                                                                                                                                                                           [ 70%]
+test/pytest_sample.py::test_fun4_combined_math[2-3] PASSED                                                                                                                                                                                      [ 75%]
+test/pytest_sample.py::test_fun4_combined_math[-1-2] PASSED                                                                                                                                                                                     [ 79%]
+test/pytest_sample.py::test_fun4_combined_math[-4--5] PASSED                                                                                                                                                                                    [ 83%]
+test/pytest_sample.py::test_fun4_combined_math[0-0] PASSED                                                                                                                                                                                      [ 87%]
+test/pytest_sample.py::test_fun4_invalid_types PASSED                                                                                                                                                                                           [ 91%]
+test/pytest_sample.py::test_fun4_is_consistent_with_individual_functions PASSED                                                                                                                                                                 [ 95%]
+test/pytest_sample.py::test_zero_behavior PASSED                                                                                                                                                                                                [100%]
+
+================================================================================================================= 24 passed in 0.04s ==================================================================================================================
+(MLOps) rjaditya@Adityas-MacBook-Air LAB3 % 
+```
+
+**Unittest Results**
+```
+(MLOps) rjaditya@Adityas-MacBook-Air LAB3 % python test/unittest_sample.py 
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.000s
+
+OK
+(MLOps) rjaditya@Adityas-MacBook-Air LAB3 % python test/unittest_sample.py -v
+test_fun1_addition (__main__.TestCalculator) ... ok
+test_fun1_invalid_types (__main__.TestCalculator) ... ok
+test_fun2_invalid_types (__main__.TestCalculator) ... ok
+test_fun2_subtraction (__main__.TestCalculator) ... ok
+test_fun3_invalid_types (__main__.TestCalculator) ... ok
+test_fun3_multiplication (__main__.TestCalculator) ... ok
+test_fun4_combined_math (__main__.TestCalculator) ... ok
+test_fun4_consistency (__main__.TestCalculator) ... ok
+test_fun4_invalid_types (__main__.TestCalculator) ... ok
+test_zero_behavior (__main__.TestCalculator) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.000s
+
+OK
+(MLOps) rjaditya@Adityas-MacBook-Air LAB3 % 
+```
+
+### STEP5: GitHub Actions

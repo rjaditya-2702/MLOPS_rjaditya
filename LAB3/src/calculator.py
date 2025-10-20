@@ -1,24 +1,19 @@
-def fun1(x,y):
-    """
-    adds two input numbers, x and y.
-    """
-    return x+y
+def fun1(x, y):
+    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
+        raise TypeError("Both x and y must be numbers")
+    return x + y
 
 def fun2(x, y):
-    """
-    subtracts y from x.
-    """
-    return y-x
+    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
+        raise TypeError("Both x and y must be numbers")
+    return y - x
 
-def fun3(x,y):
-    """
-    multiplies x and y.
-    """
-    return x*y
+def fun3(x, y):
+    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
+        raise TypeError("Both x and y must be numbers")
+    return x * y
 
 def fun4(x, y):
-    """
-    ombines the results of the above functions and returns their sum.
-    """
-    ans = fun1(x,y) + fun2(x,y) + fun3(x,y)
-    return ans
+    if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
+        raise TypeError("Both x and y must be numbers")
+    return fun1(x, y) + fun2(x, y) + fun3(x, y)
