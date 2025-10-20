@@ -136,4 +136,4 @@ OK
 ### STEP5: GitHub Actions
 - Created yml files to run pytest and unittest scripts
 - yml files present in `MLOPS_rjaditya/.github/workflows`
-- tests will run only when there is a change to LAB3
+- Tests will run only when there is a change to LAB3 or to the yml files

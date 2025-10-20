@@ -6,6 +6,7 @@ on:
       - main
     paths: 
       - 'LAB3/**'   # Only trigger if any file inside LAB3/ changes  
+      - '.github/workflows/unittest_action.yml' # And this yml file
 
 jobs:
   build:
@@ -26,7 +27,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run unittests
-      run: python -m unittest test.unittest_sample  # Fixed: Removed LAB3 prefix
+      run: python -m unittest test.unittest_test  # Fixed: Removed LAB3 prefix
 
     - name: Notify on success
       if: success()

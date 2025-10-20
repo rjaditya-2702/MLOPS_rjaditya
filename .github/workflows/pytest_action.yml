@@ -8,6 +8,7 @@ on:
       - 'releases/**'
     paths: 
       - 'LAB3/**'   # Only trigger if any file inside LAB3/ changes
+      - '.github/workflows/pytest_action.yml' # And if there is achange in the yml file
 
   label:
     types:
@@ -41,7 +42,7 @@ jobs:
 
     - name: Upload test results
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: test-results
         path: LAB3/pytest-report.xml
