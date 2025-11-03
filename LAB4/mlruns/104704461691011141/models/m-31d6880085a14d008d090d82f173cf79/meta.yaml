@@ -1,0 +1,10 @@
+artifact_location: file:///Users/rjaditya/Documents/NEU-SEM/Fall-25/MLOps/MLOPS_rjaditya/LAB4/mlruns/104704461691011141/models/m-31d6880085a14d008d090d82f173cf79/artifacts
+creation_timestamp: 1762208462421
+experiment_id: '104704461691011141'
+last_updated_timestamp: 1762208467099
+model_id: m-31d6880085a14d008d090d82f173cf79
+model_type: null
+name: NeuralNetworkModel
+source_run_id: e81303f7b03342c99cf4b82802637c35
+status: 2
+status_message: null

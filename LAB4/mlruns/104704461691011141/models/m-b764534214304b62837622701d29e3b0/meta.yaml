@@ -1,0 +1,10 @@
+artifact_location: file:///Users/rjaditya/Documents/NEU-SEM/Fall-25/MLOps/MLOPS_rjaditya/LAB4/mlruns/104704461691011141/models/m-b764534214304b62837622701d29e3b0/artifacts
+creation_timestamp: 1762208442438
+experiment_id: '104704461691011141'
+last_updated_timestamp: 1762208444001
+model_id: m-b764534214304b62837622701d29e3b0
+model_type: null
+name: model
+source_run_id: 62626b9c29e94bda822537119d859ed9
+status: 2
+status_message: null

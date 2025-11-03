@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/rjaditya/Documents/NEU-SEM/Fall-25/MLOps/MLOPS_rjaditya/LAB4/mlruns/104704461691011141/b9a5e57287e041cf8f82965fe246dc0e/artifacts
+end_time: 1762208470563
+entry_point_name: ''
+experiment_id: '104704461691011141'
+lifecycle_stage: active
+run_id: b9a5e57287e041cf8f82965fe246dc0e
+run_name: NN_Adam_lr1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762208467107
+status: 3
+tags: []
+user_id: rjaditya

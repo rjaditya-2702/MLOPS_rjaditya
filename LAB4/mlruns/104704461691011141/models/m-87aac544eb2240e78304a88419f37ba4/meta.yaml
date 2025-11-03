@@ -1,0 +1,10 @@
+artifact_location: file:///Users/rjaditya/Documents/NEU-SEM/Fall-25/MLOps/MLOPS_rjaditya/LAB4/mlruns/104704461691011141/models/m-87aac544eb2240e78304a88419f37ba4/artifacts
+creation_timestamp: 1762208431490
+experiment_id: '104704461691011141'
+last_updated_timestamp: 1762208433242
+model_id: m-87aac544eb2240e78304a88419f37ba4
+model_type: null
+name: LogisticRegressionModel
+source_run_id: c8ecfd0501254104a430258475ce17c8
+status: 2
+status_message: null
