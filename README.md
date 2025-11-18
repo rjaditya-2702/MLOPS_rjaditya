@@ -13,3 +13,4 @@ GitHub Exercise - This lab focuses on 5 modules, which includes creating a virtu
 MLFlow Exercise - Logging experiments (parameters and metrics) and Serving Best Recall model
 
 ## LAB5
+Docker Lab - host a webapp on a Docker container (model to classify handwritten digits)
