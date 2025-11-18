@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mnist-classifier:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mnist_app
+    ports:
+      - "8000:5000"
+    volumes:
+      - ./model:/app/model
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
