@@ -114,8 +114,6 @@ docker push us-central1-docker.pkg.dev/rjaditya-mlops-lab-479905/mnist-classifie
 cd ..
 ```
 
-![Docker Images](assets/docker_images.png)
-
 ### Step 5: Deploy Cloud Run
 
 ```bash
