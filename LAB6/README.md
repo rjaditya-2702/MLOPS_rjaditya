@@ -20,6 +20,35 @@ Demonstrate the complete Terraform lifecycle:
 
 ---
 
+## Terraform Features Implemented
+
+| Feature | File | Description |
+|---------|------|-------------|
+| **Variable Validation** | `variables.tf` | Input validation with custom error messages |
+| **Locals** | `main.tf` | Dynamic image URL construction |
+| **Outputs** | `outputs.tf` | Service URL, docker commands, cost info |
+| **Resource Dependencies** | `main.tf` | `depends_on` for proper resource ordering |
+| **Targeted Apply** | CLI | `-target` flag for phased deployment |
+| **Labels** | `main.tf` | Resource tagging for organization |
+
+### Variable Validation Examples
+
+```hcl
+# Restrict environment to valid values
+validation {
+  condition     = contains(["dev", "staging", "prod"], var.environment)
+  error_message = "Environment must be: dev, staging, or prod."
+}
+
+# Regex validation for naming conventions
+validation {
+  condition     = can(regex("^[a-z][a-z0-9-]{0,48}[a-z0-9]$", var.app_name))
+  error_message = "App name must be lowercase, start with letter, max 50 chars."
+}
+```
+
+---
+
 ## Prerequisites
 
 ### Tools
