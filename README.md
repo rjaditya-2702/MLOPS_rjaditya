@@ -16,4 +16,4 @@ MLFlow Exercise - Logging experiments (parameters and metrics) and Serving Best 
 Docker Lab - host a webapp on a Docker container (model to classify handwritten digits)
 
 ## LAB6
-Terraform Lab - Code - deploy the infra required to host LAB5's model. Upgrade the config and reapply the changes and new instance.
+Terraform Lab - Code - deploy the infra required to host LAB5's model. Upgrade the config (new memory setting) and reapply the changes.
