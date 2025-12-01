@@ -73,14 +73,53 @@ LAB6/
 
 ---
 
+## Configuration: terraform.tfvars
+
+Sample configuration file:
+
+```hcl
+# REQUIRED: Your GCP Project ID
+project_id = "your-project-id"
+
+# Phase 1: MNIST v1 (Green theme)
+image_name      = "mnist-classifier"
+image_tag       = "latest"
+memory_limit    = "1Gi"
+cpu_limit       = "1"
+request_timeout = 300
+
+# Phase 2: Change image_tag to "v2" for dark theme
+# image_tag = "v2"
+
+# Cost optimization
+region              = "us-central1"
+app_name            = "mnist-classifier"
+environment         = "dev"
+min_instances       = 0    # Scale to zero when idle
+max_instances       = 1    # Limit scaling
+allow_public_access = true
+```
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `project_id` | GCP Project ID | Required |
+| `image_name` | Docker image name | `mnist-classifier` |
+| `image_tag` | Image version tag | `latest` |
+| `memory_limit` | Container memory | `1Gi` |
+| `cpu_limit` | Container CPU | `1` |
+| `min_instances` | Minimum instances | `0` (free when idle) |
+| `max_instances` | Maximum instances | `1` |
+
+---
+
 ## Phase 1: Deploy MNIST v1
 
 ### Step 1: Configure
 
-Edit `terraform.tfvars`:
+Edit `terraform.tfvars` with your project ID:
 
 ```hcl
-project_id = "rjaditya-mlops-lab-479905"
+project_id = "your-project-id"
 image_name = "mnist-classifier"
 image_tag  = "latest"
 ```
