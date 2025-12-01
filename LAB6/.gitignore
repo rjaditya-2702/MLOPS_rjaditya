@@ -1,0 +1,23 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Secrets (uncomment if tfvars contains sensitive data)
+# terraform.tfvars
+
+# Model files (large binaries)
+*.h5
+*.pth
+*.pt
+*.onnx
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+

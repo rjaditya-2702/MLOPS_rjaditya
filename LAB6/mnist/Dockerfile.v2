@@ -1,0 +1,17 @@
+# MNIST Digit Classifier - Version 2.0 (Dark Theme)
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application (V2!)
+COPY app_v2.py app.py
+COPY model/ model/
+
+EXPOSE 5000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "1", "--timeout", "120", "app:app"]
+

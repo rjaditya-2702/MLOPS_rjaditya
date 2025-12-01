@@ -1,3 +1,5 @@
 *.jpg
 .DS_Store
 __pycache__
+google-cloud-cli-darwin-arm.tar.gz
+google-cloud-sdk/
