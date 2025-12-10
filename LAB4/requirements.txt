@@ -1,0 +1,6 @@
+mlflow
+scikit-learn
+torch
+numpy
+requests
+

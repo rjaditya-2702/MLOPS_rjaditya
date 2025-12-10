@@ -1,0 +1,11 @@
+{
+  "dataset_info": {
+    "training_samples": 800,
+    "test_samples": 200,
+    "features": 2,
+    "class_distribution": [
+      397,
+      403
+    ]
+  }
+}
